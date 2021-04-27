@@ -67,7 +67,7 @@ export async function uploadURL(UploadURL:string){
         return s3.getSignedUrl('putObject', { // The URL will allow to perform the PUT operation Changed to return URL
         Bucket: process.env.S3_BUCKET_NAME, // Name of an S3 bucket
         Key: UploadURL, // id of an object this URL allows access to
-        Expires: '300'  // A URL is only valid for 5 minutes
+        Expires: 300  // A URL is only valid for 5 minutes
       })
 
     //return presignedUrl

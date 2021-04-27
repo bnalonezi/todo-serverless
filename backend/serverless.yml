@@ -28,7 +28,7 @@ custom:
     models:
         - name: CreateTodoRequest
           contentType: 'application/json'
-          schema: ${file(models/TodoItem.json)}
+          schema: ${file(src/models/TodoItem.json)}
         # - name: UpdateTodoRequest
         #   contentType: 'application/json'
         #   schema: ${file(models/TodoUpdate.json)}
@@ -78,8 +78,8 @@ functions:
           auth: Auth
           reqValidatorName: RequestBodyValidator
           documentation:
-            summary: Create a new todo
-            description: Create a new todo
+            summary: 'Create a new todo'
+            description: 'Create a new todo'
             requestModels:
               'application/json': CreateTodoRequest
     iamRoleStatements:
@@ -107,7 +107,7 @@ functions:
     handler: src/lambda/http/updateTodo.handler
     events:
       - http:
-          method: put
+          method: patch
           path: todos/{todoId}
           cors: true
           auth: Auth
@@ -174,12 +174,12 @@ functions:
     events:
       - http:
           method: post
-          cors: true
           path: todos/{todoId}/attachment
+          cors: true
     iamRoleStatements:
       - Effect: Allow
         Action:
-          - s3:PutObject
+          - s3:*
         Resource: arn:aws:s3:::${self:provider.environment.S3_BUCKET_NAME}/*
       - Effect: Allow
         Action:
